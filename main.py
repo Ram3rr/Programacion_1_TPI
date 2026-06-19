@@ -8,9 +8,9 @@ while True:
         case '1':
             fun.agregar_pais(paises)
         case '2':
-            pass
+            fun.actualizar_datos(paises)
         case '3':
-            pass
+            fun.buscar_paises(paises)
         case '4':
             pass
         case '5':

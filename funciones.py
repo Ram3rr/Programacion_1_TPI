@@ -1,4 +1,4 @@
-#Se crean errores personalizados para mensajes mas claros y evitar errores
+#Se crean errores personalizados para mensajes mas claros y evitar el uso excesivo de solamente ValueError
 class ErrorNombreInvalido(Exception):
     pass
 class ErrorNumeroInvalido(Exception):
@@ -24,7 +24,7 @@ def menu_opciones():
 #Se carga la informacion del archivo csv a un diccionario
 def cargar_paises():
 
-    paisesAgregados = {}
+    paises_agregados = {}
     with open("paises.csv", "r", encoding="utf-8") as archivo:
         next (archivo) 
         for i in archivo:
@@ -33,10 +33,10 @@ def cargar_paises():
             continente = paises[1]
             poblacion = paises[2]
             superficie = paises[3]
-            #Se crea el diccionario paisesAgregados con un diccionario como valor de cada uno
-            paisesAgregados[nombre] = {'Continente': continente, 'Poblacion': poblacion, 'Superficie': superficie}
+            #Se crea el diccionario paises_agregados con un diccionario como valor de cada uno
+            paises_agregados[nombre] = {'Continente': continente, 'Poblacion': poblacion, 'Superficie': superficie}
 
-        return paisesAgregados
+        return paises_agregados
     
 
 def agregar_pais(paises):
@@ -94,7 +94,74 @@ def agregar_pais(paises):
         except ErrorNumeroInvalido as e:
             print(e)
 
-#Se agrega el
+#Se agregan los datos del pais a el diccionario de paises ya validado.
     paises[nombre] = {'Continente': continente, 'Poblacion': poblacion, 'Superficie': superficie}
 
 
+def actualizar_datos(paises):
+    while True:
+        try:
+            actualizar_pais = input('Ingrese que pais desea editar: ').strip().title()
+            if actualizar_pais not in paises:
+                raise ErrorNombreInvalido ('Error, ese pais no se encuentra cargado.')
+            break
+        except ErrorNombreInvalido as e:
+            print(e)
+
+    while True:        
+        print('''Ingrese 1 para actualizar la poblacion del pais.
+Ingrese 2 para actualizar la superficie de un pais.
+Ingrese 3 para volver al menu.
+              ''')
+        opcion = input('Ingrese su opcion: ')
+        match opcion:
+            case '1':
+                while True:    
+                    try:    
+                        poblacion_actualizada = int(input('Ingrese la poblacion actualizada: '))
+                        if poblacion_actualizada < 0:
+                            raise ErrorNumeroInvalido ('Error, la poblacion no puede ser menor a cero.')
+                        paises[actualizar_pais]['Poblacion'] = poblacion_actualizada
+                        print(f'La poblacion de {actualizar_pais} fue correctamente actualizada.')
+                        break
+                    except ValueError:
+                        print('Error, ingrese un numero valido')
+                    except ErrorNumeroInvalido as e:
+                        print(e)
+                
+            case '2':
+                while True:    
+                    try:
+                        superficie_actualizada = int(input('Ingrese la superficie actualizada: '))
+                        if superficie_actualizada <= 0:
+                            raise ErrorNumeroInvalido ('Error, la superficie no puede ser menor/igual a 0.')
+                        paises[actualizar_pais]['Superficie'] = superficie_actualizada
+                        print(f'La superficie de {actualizar_pais} fue correctamente actualizada.')
+                        break
+                    except ValueError:
+                        print('Error, ingrese un numero valido')
+                    except ErrorNumeroInvalido as e:
+                        print(e)
+
+            case '3':
+                print('Sera regresado al menu principal\n')
+                break
+            case _:
+                print('Error, ingrese una opcion valida')
+
+
+def buscar_paises(paises):
+    while True:
+        encontrado = False
+        busqueda = input("Ingrese el país buscado: ")
+        for pais,datos in paises.items():
+            if busqueda.title() in pais:
+                print(f'''Pais encontrado correctamente.
+Pais: {pais}
+Continente: {datos['Continente']}
+Poblacion: {datos['Poblacion']}
+Superficie: {datos['Superficie']}''')
+                encontrado = True
+        if not encontrado:
+            print('Error, el pais buscado no se encuentra en la lista.')
+        else: break
