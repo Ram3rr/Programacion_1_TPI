@@ -1,0 +1,26 @@
+import funciones as fun
+
+paises = fun.cargar_paises()
+
+while True:
+    opcion = fun.menu_opciones()
+    match opcion:
+        case '1':
+            fun.agregar_pais(paises)
+        case '2':
+            pass
+        case '3':
+            pass
+        case '4':
+            pass
+        case '5':
+            pass
+        case '6':
+            pass
+        case '7':
+            print('\nAdios!')
+            break
+        case '8':
+            print(paises)
+        case _:
+            print('\nError, ingrese una opcion valida.\n')
