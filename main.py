@@ -14,9 +14,9 @@ while True:
         case '4':
             fun.filtrar_paises(paises)
         case '5':
-            pass
+            fun.ordenar_paises(paises)
         case '6':
-            pass
+            fun.mostrar_estadisticas(paises)
         case '7':
             print('\nGracias por utilizar nuestro sistema, hasta luego!')
             break

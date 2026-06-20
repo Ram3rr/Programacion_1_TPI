@@ -310,3 +310,132 @@ Ingrese 4 para volver al menu.
             case '4':
                 print('\nSera regresado al menu principal.\n')
                 return
+            
+
+def ordenar_paises(paises):
+    while True:       
+        opcion = input('''1. Nombre
+2. Poblacion
+3. Superficie
+4. Salir
+
+Ingrese como desea ordenar los países: ''')
+        match opcion:
+            case '1':
+#Se crea una nueva variable a partir del sorted del diccionario 'paises' para tenerlo ordenado alfabeticamente por los nombres de los paises
+                paises_ordenados = sorted(paises)
+                print("\n-----Paises ordenados por Nombre-----\n")
+                for pais in paises_ordenados:
+                    print(pais)
+                print("")                                     
+                break
+
+            case '2':
+                orden = input('1. Ascendente \n2. Descendente\n\nIngrese el orden deseado: ')
+#Se crea una nueva lista para tener primero el número de la poblacion y poder usar un sorted para ordenarlo
+                lista_poblacion = []
+                for pais, datos in paises.items():
+#Se agrega el número de la poblacion y el nombre del pais para la futura impresion
+                    lista_poblacion.append((int(datos["Poblacion"]), pais))
+                match orden:
+                    case '1':
+                        lista_poblacion = sorted(lista_poblacion)
+                    case '2':
+#Usando reverse= True se puede dar vuelta la lista para que quede en orden descendiente
+                        lista_poblacion = sorted(lista_poblacion, reverse=True)
+                    case _:
+                        print("Error, ingrese un número valido")
+                        break
+
+                print("\n-----Paises ordenados por Poblacion-----\n")
+                for pais in lista_poblacion:
+                    print(pais)
+                print("")
+                break 
+
+            case '3':
+#Se usa usa la misma lógica que el (case '2')
+                orden = input('1. Ascendente \n2. Descendente\n\nIngrese el orden deseado: ')
+                lista_superficie = []
+                for pais, datos in paises.items():
+                    lista_superficie.append((int(datos["Superficie"]), pais))
+                match orden:
+                    case '1':
+                        lista_superficie = sorted(lista_superficie)
+                    case '2':
+                        lista_superficie = sorted(lista_superficie, reverse=True)
+                    case _:
+                        print("Error, ingrese un número valido")
+                        break
+
+                print("\n-----Paises ordenados por Superficie-----\n")
+                for pais in lista_superficie:
+                    print(pais)
+                print("")
+                break 
+                
+            case '4':
+                print('Volviendo al menú')
+                break
+            case _:
+                print("Error, ingrese un número valido")
+
+
+def mostrar_estadisticas(paises):
+
+#Se crean 2 variables para anotar el número con menor y mayor cantidad de poblacion
+    mayor_pais = ""
+    menor_pais = ""
+    for pais, datos in paises.items():
+#Se actualiza la variable al primer pais para luego comparar
+        if mayor_pais == '':
+            mayor_pais = pais
+            menor_pais = pais
+#Se compara para actualizar la variable para menor y mayor superficie
+        if int(datos['Poblacion']) > int(paises[mayor_pais]['Poblacion']):
+            mayor_pais = pais
+        if int(datos['Poblacion']) < int(paises[menor_pais]['Poblacion']):
+            menor_pais = pais
+    print("\n------ Paises Mayor y Menor Poblacion ------\n")
+    print(f'''Mayor poblacion:
+Pais: {mayor_pais}  Poblacion: {paises[mayor_pais]['Poblacion']}''')
+    print("")
+    print(f'''Menor poblacion:
+Pais: {menor_pais}  Poblacion: {paises[menor_pais]['Poblacion']}''')
+
+#Se crea la variable de la suma total de la poblacion
+    suma_poblacion = 0
+    for pais, datos in paises.items():
+        suma_poblacion += int(datos['Poblacion'])
+#Se suma la poblacion de cada pais y se saca el promedio
+        promedio_poblacion = suma_poblacion / len(paises)
+
+    print("\n------ Promedio de Poblacion ------\n")
+    print(promedio_poblacion)
+
+
+#Misma lógica que el promedio de la población
+    suma_superficie = 0
+    for datos in paises.values():
+        suma_superficie += int(datos['Superficie'])
+
+    promedio_superficie = suma_superficie / len(paises)
+
+    print("\n------ Promedio de Superficie ------\n")
+    print(promedio_superficie)
+
+    
+#Se crea un diccionario con los continentes
+    print("\n------ Cantidad de paises por continente ------\n")
+    continentes = {'America': 0, 'Europa': 0, 'Asia': 0, 'Africa': 0, 'Oceania': 0}
+
+    for datos in paises.values():
+
+        continente = datos['Continente']
+        if continente in continentes:
+            continentes[continente] += 1
+#Se compara para agregar un pais al contador segun el continente al que pertenezca.
+
+    for continente, cantidad in continentes.items():
+        print(f'{continente}: {cantidad}')
+    print("")
