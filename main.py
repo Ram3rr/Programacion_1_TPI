@@ -12,13 +12,13 @@ while True:
         case '3':
             fun.buscar_paises(paises)
         case '4':
-            pass
+            fun.filtrar_paises(paises)
         case '5':
             pass
         case '6':
             pass
         case '7':
-            print('\nAdios!')
+            print('\nGracias por utilizar nuestro sistema, hasta luego!')
             break
         case '8':
             print(paises)

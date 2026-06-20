@@ -31,8 +31,8 @@ def cargar_paises():
             paises = i.strip().split(',')
             nombre = paises[0]
             continente = paises[1]
-            poblacion = paises[2]
-            superficie = paises[3]
+            poblacion = int(paises[2])
+            superficie = int(paises[3])
             #Se crea el diccionario paises_agregados con un diccionario como valor de cada uno
             paises_agregados[nombre] = {'Continente': continente, 'Poblacion': poblacion, 'Superficie': superficie}
 
@@ -109,10 +109,11 @@ def actualizar_datos(paises):
             print(e)
 
     while True:        
-        print('''Ingrese 1 para actualizar la poblacion del pais.
+        print('''----------------
+Ingrese 1 para actualizar la poblacion del pais.
 Ingrese 2 para actualizar la superficie de un pais.
 Ingrese 3 para volver al menu.
-              ''')
+----------------''')
         opcion = input('Ingrese su opcion: ')
         match opcion:
             case '1':
@@ -165,3 +166,147 @@ Superficie: {datos['Superficie']}''')
         if not encontrado:
             print('Error, el pais buscado no se encuentra en la lista.')
         else: break
+
+
+def filtrar_paises(paises):
+
+    while True:
+        print('''----------------
+Ingrese 1 para filtrar por continente.
+Ingrese 2 para filtrar por rango poblacional.
+Ingrese 3 para filtrar por rango de superficie.
+Ingrese 4 para volver al menu.
+----------------''')
+        
+        opcion = input('Ingrese la opcion elegida: ')
+        match opcion:
+
+            case '1':
+
+                paises_filtrados = []
+                encontrado = False
+                filtrar_continente = input('Ingrese que continente desea filtrar: ').strip().title()
+                if filtrar_continente in ['America', 'Asia', 'Europa', 'Africa', 'Oceania']:
+                    for pais, datos in paises.items():
+                        if datos['Continente'] == filtrar_continente:
+                            paises_filtrados.append(pais)
+                            encontrado = True
+                    print(f'Los paises ubicados en {filtrar_continente} son {paises_filtrados}')
+                    if not encontrado:
+                        print('No existen paises dentro de ese continente.')
+                        break
+                else:
+                    print('El continente ingresado no existe')
+
+            case '2':
+
+                paises_filtrados = []
+                opcion_filtrado = input('\nElija X para filtrar paises con mayor poblacion que la seleccionada.\nSeleccione Y para filtrar paises con menor poblacion que la seleccionada: ').strip().title()
+                match opcion_filtrado:
+                    case 'X':
+                        
+                        while True:
+                            try:
+
+                                encontrado = False
+                                filtrar_poblacion = int(input('Ingrese por el rango poblacional que desee filtrar: '))
+                                if filtrar_poblacion < 0:
+                                    raise ErrorNumeroInvalido ('Error, la poblacion no puede ser menor a 0')
+                                for pais, datos in paises.items():
+                                    if datos['Poblacion'] > filtrar_poblacion:
+                                        paises_filtrados.append(pais)
+                                        encontrado = True
+                                if encontrado:
+                                    print(f'Los paises con una poblacion mayor a {filtrar_poblacion} son {paises_filtrados}')
+                                if not encontrado:
+                                    print('No existen paises dentro de ese rango poblacional.')
+                                break
+
+                            except ValueError:
+                                print('Error, ingrese un numero valido.')
+                            except ErrorNumeroInvalido as e:
+                                print (e)
+
+                    case 'Y':
+
+                        while True:
+                            try:
+
+                                encontrado = False
+                                filtrar_poblacion = int(input('Ingrese por el rango poblacional que desee filtrar: '))
+                                if filtrar_poblacion < 0:
+                                    raise ErrorNumeroInvalido ('Error, la poblacion no puede ser menor a 0')
+                                for pais, datos in paises.items():
+                                    if datos['Poblacion'] < filtrar_poblacion:
+                                        paises_filtrados.append(pais)
+                                        encontrado = True
+                                print(f'Los paises con una poblacion menor a {filtrar_poblacion} son {paises_filtrados}')
+                                if not encontrado:
+                                    print('No existen paises dentro de ese rango poblacional.')
+                                break
+
+                            except ValueError:
+                                print('Error, ingrese un numero valido.')
+                            except ErrorNumeroInvalido as e:
+                                print (e)
+                        
+                    case _:
+                        print('Ingrese una opcion valida')
+
+            case '3':
+
+                paises_filtrados = []
+                opcion_filtrado = input('\nElija X para filtrar paises con mayor superficie que la seleccionada.\nSeleccione Y para filtrar paises con menor superficie que la seleccionada: ').strip().title()
+                match opcion_filtrado:
+                    case 'X':
+
+                        while True:
+                            try:
+
+                                encontrado = False
+                                filtrar_poblacion = int(input('Ingrese por el rango de superficie que desee filtrar: '))
+                                if filtrar_poblacion <= 0:
+                                    raise ErrorNumeroInvalido ('Error, la superficie no puede ser menor/igual a 0')
+                                for pais, datos in paises.items():
+                                    if datos['Superficie'] > filtrar_poblacion:
+                                        paises_filtrados.append(pais)
+                                        encontrado = True
+                                print(f'Los paises con una superficie mayor a {filtrar_poblacion} son {paises_filtrados}')
+                                if not encontrado:
+                                    print('No existen paises dentro de ese rango de superficie.')
+                                break
+
+                            except ValueError:
+                                print('Error, ingrese un numero valido.')
+                            except ErrorNumeroInvalido as e:
+                                print (e)
+
+                    case 'Y':
+
+                        while True:
+                            try:
+
+                                encontrado = False
+                                filtrar_poblacion = int(input('Ingrese por el rango de superficie que desee filtrar: '))
+                                if filtrar_poblacion <= 0:
+                                    raise ErrorNumeroInvalido ('Error, la superficie no puede ser menor/igual a 0')
+                                for pais, datos in paises.items():
+                                    if datos['Superficie'] < filtrar_poblacion:
+                                        paises_filtrados.append(pais)
+                                        encontrado = True
+                                print(f'Los paises con una superficie menor a {filtrar_poblacion} son {paises_filtrados}')
+                                if not encontrado:
+                                    print('No existen paises dentro de ese rango de superficie.')
+                                break
+
+                            except ValueError:
+                                print('Error, ingrese un numero valido.')
+                            except ErrorNumeroInvalido as e:
+                                print (e)
+                        
+                    case _:
+                        print('\nIngrese una opcion valida')
+                            
+            case '4':
+                print('\nSera regresado al menu principal.\n')
+                return
