@@ -8,15 +8,30 @@ while True:
         case '1':
             fun.agregar_pais(paises)
         case '2':
-            fun.actualizar_datos(paises)
+            if paises.len() <= 0:
+                ('Error, no hay paises cargados en el sistema.')
+            else:
+                fun.actualizar_datos(paises)
         case '3':
-            fun.buscar_paises(paises)
+            if paises.len() <= 0:
+                ('Error, no hay paises cargados en el sistema.')
+            else:
+                fun.buscar_paises(paises)
         case '4':
-            fun.filtrar_paises(paises)
+            if paises.len() <= 0:
+                ('Error, no hay paises cargados en el sistema.')
+            else:
+                fun.filtrar_paises(paises)
         case '5':
-            fun.ordenar_paises(paises)
+            if paises.len() <= 0:
+                ('Error, no hay paises cargados en el sistema.')
+            else:
+                fun.ordenar_paises(paises)
         case '6':
-            fun.mostrar_estadisticas(paises)
+            if paises.len() <= 0:
+                ('Error, no hay paises cargados en el sistema.')
+            else:
+                fun.mostrar_estadisticas(paises)
         case '7':
             print('\nGracias por utilizar nuestro sistema, hasta luego!')
             break
