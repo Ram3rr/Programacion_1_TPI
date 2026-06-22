@@ -7,35 +7,20 @@ while True:
     match opcion:
         case '1':
             fun.agregar_pais(paises)
+            fun.guardar_paises(paises)
         case '2':
-            if paises.len() <= 0:
-                ('Error, no hay paises cargados en el sistema.')
-            else:
-                fun.actualizar_datos(paises)
+            fun.actualizar_datos(paises)
+            fun.guardar_paises(paises)
         case '3':
-            if paises.len() <= 0:
-                ('Error, no hay paises cargados en el sistema.')
-            else:
-                fun.buscar_paises(paises)
+            fun.buscar_paises(paises)
         case '4':
-            if paises.len() <= 0:
-                ('Error, no hay paises cargados en el sistema.')
-            else:
-                fun.filtrar_paises(paises)
+            fun.filtrar_paises(paises)
         case '5':
-            if paises.len() <= 0:
-                ('Error, no hay paises cargados en el sistema.')
-            else:
-                fun.ordenar_paises(paises)
+            fun.ordenar_paises(paises)
         case '6':
-            if paises.len() <= 0:
-                ('Error, no hay paises cargados en el sistema.')
-            else:
-                fun.mostrar_estadisticas(paises)
+            fun.mostrar_estadisticas(paises)
         case '7':
             print('\nGracias por utilizar nuestro sistema, hasta luego!')
             break
-        case '8':
-            print(paises)
         case _:
             print('\nError, ingrese una opcion valida.\n')
