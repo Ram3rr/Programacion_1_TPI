@@ -141,7 +141,7 @@ Ingrese 3 para volver al menu.
                                 raise ErrorNumeroInvalido ('Error, la poblacion no puede ser menor a cero.')
                             #Se ingresa al diccionario de la clave del pais, una vez dentro edita la la clave 'Poblacion' con el nuevo valor.
                             paises[actualizar_pais]['Poblacion'] = poblacion_actualizada
-                            print(f'La poblacion de {actualizar_pais} fue correctamente actualizada.')
+                            print(f'La poblacion de {actualizar_pais} fue correctamente actualizada a {poblacion_actualizada} habitantes.')
                             return
                         except ValueError:
                             print('Error, ingrese un numero valido')
@@ -156,7 +156,7 @@ Ingrese 3 para volver al menu.
                                 raise ErrorNumeroInvalido ('Error, la superficie no puede ser menor/igual a 0.')
                             #Funciona bajo la misma logica que el case 2 solamente que modifica la superficie.
                             paises[actualizar_pais]['Superficie'] = superficie_actualizada
-                            print(f'La superficie de {actualizar_pais} fue correctamente actualizada a {superficie_actualizada} habitantes.\n')
+                            print(f'La superficie de {actualizar_pais} fue correctamente actualizada a {superficie_actualizada} superficie.\n')
                             return
                         except ValueError:
                             print('Error, ingrese un numero valido')
