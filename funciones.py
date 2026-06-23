@@ -34,6 +34,8 @@ def cargar_paises():
         with open("paises.csv", "r", encoding="utf-8") as archivo:
             next (archivo) 
             for i in archivo:
+                if i.strip() == '':
+                    continue
                 paises = i.strip().split(',')
                 nombre = paises[0]
                 continente = paises[1]
